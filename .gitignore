@@ -54,7 +54,7 @@ config/user_config.*
 
 # User-specific LaunchAgent files (contain paths)
 *.plist.local
-*launchagent*.plist
+# Note: examples/launchagent.plist is included as template
 
 # Archives and distributions
 *.tar.gz

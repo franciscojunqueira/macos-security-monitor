@@ -1,0 +1,97 @@
+# macOS Security Monitor - .gitignore
+
+# macOS system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Generated data and logs
+*.log
+*.gz
+*.diff
+*.tmp
+*.bak
+
+# Monitor runtime directories (user-specific)
+/runtime_data/
+/cache/
+/logs/
+/config/user_*
+/notifications/
+
+# Temporary files
+temp.*
+*.temp
+.temp*
+
+# User configuration files (contain personal data)
+config/*.env
+config/critical_apps.txt
+config/user_config.*
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# Backup files
+*.orig
+*~
+.#*
+
+# Local development
+/dev/
+/testing/
+/sandbox/
+
+# User-specific LaunchAgent files (contain paths)
+*.plist.local
+*launchagent*.plist
+
+# Archives and distributions
+*.tar.gz
+*.zip
+*.dmg
+
+# Compiled binaries (if any added later)
+*.o
+*.so
+*.dylib
+
+# Environment configuration backups
+.env.*
+*.env.backup
+
+# Test artifacts
+/test_results/
+/coverage/
+
+# Documentation builds
+docs/_build/
+docs/site/
+
+# Node modules (if any web interface added)
+node_modules/
+
+# Python cache (if any Python tools added)
+__pycache__/
+*.pyc
+*.pyo
+
+# Personal notes and todos
+TODO.md
+NOTES.md
+*.todo
+*.notes
+
+# Benchmark and performance data
+benchmarks/
+performance_*.txt

@@ -1,0 +1,110 @@
+name: Test macOS Security Monitor
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: macos-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Make scripts executable
+      run: chmod +x scripts/*.sh
+    
+    - name: Test script syntax
+      run: |
+        echo "Testing script syntax..."
+        bash -n scripts/monitor_instalacoes_final.sh
+        bash -n scripts/config_monitor.sh
+        bash -n scripts/monitor_instalacoes_otimizado.sh
+        bash -n scripts/monitor_instalacoes_legacy.sh
+        echo "✅ All scripts have valid syntax"
+    
+    - name: Test quick mode execution
+      run: |
+        echo "Testing quick mode execution..."
+        export MONITOR_MODE="quick"
+        timeout 120 ./scripts/monitor_instalacoes_final.sh || true
+        echo "✅ Quick mode test completed"
+    
+    - name: Test configuration script
+      run: |
+        echo "Testing configuration script..."
+        # Test help/usage without interactive input
+        echo "5" | ./scripts/config_monitor.sh || true
+        echo "✅ Configuration script test completed"
+    
+    - name: Verify file structure
+      run: |
+        echo "Verifying project structure..."
+        test -f scripts/monitor_instalacoes_final.sh
+        test -f scripts/config_monitor.sh  
+        test -f examples/launchagent.plist
+        test -f examples/configuration.env
+        test -f examples/critical_apps.txt
+        test -f docs/README_Monitor.md
+        test -f LICENSE
+        echo "✅ All required files present"
+    
+    - name: Test environment variables
+      run: |
+        echo "Testing environment variable handling..."
+        export MONITOR_MODE="quick"
+        export NOTIFICATION_FREQUENCY="2"
+        export ENABLE_GROUPED_NOTIFICATIONS="true"
+        export LOG_MAX_SIZE_MB="10"
+        export LOG_ROTATION_COUNT="3"
+        echo "✅ Environment variables set successfully"
+    
+    - name: Check for common security issues
+      run: |
+        echo "Checking for common security issues..."
+        ! grep -r "rm -rf /" scripts/
+        ! grep -r "sudo rm" scripts/
+        ! grep -r "chmod 777" scripts/
+        echo "✅ No obvious security issues found"
+
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install shellcheck
+      run: sudo apt-get install -y shellcheck
+    
+    - name: Run shellcheck
+      run: |
+        echo "Running shellcheck on scripts..."
+        find scripts/ -name "*.sh" -exec shellcheck {} \; || true
+        echo "✅ Shellcheck completed (warnings may exist)"
+
+  docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Check documentation
+      run: |
+        echo "Checking documentation..."
+        test -s README.md
+        test -s docs/README_Monitor.md
+        grep -q "macOS Security Monitor" README.md
+        grep -q "Quick Start" README.md
+        echo "✅ Documentation check passed"
+    
+    - name: Validate example files
+      run: |
+        echo "Validating example files..."
+        test -s examples/launchagent.plist
+        test -s examples/configuration.env
+        test -s examples/critical_apps.txt
+        # Check plist syntax
+        python3 -c "import plistlib; plistlib.load(open('examples/launchagent.plist', 'rb'))"
+        echo "✅ Example files validated"

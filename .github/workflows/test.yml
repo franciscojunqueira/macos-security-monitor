@@ -47,7 +47,10 @@ jobs:
         test -f examples/launchagent.plist
         test -f examples/configuration.env
         test -f examples/critical_apps.txt
+        test -f examples/LAUNCHAGENT_INSTALL.md
         test -f docs/README_Monitor.md
+        test -f tests/test_config_monitor.sh
+        test -f tests/README.md
         test -f LICENSE
         echo "✅ All required files present"
     
@@ -108,3 +111,26 @@ jobs:
         # Check plist syntax
         python3 -c "import plistlib; plistlib.load(open('examples/launchagent.plist', 'rb'))"
         echo "✅ Example files validated"
+
+  config-tests:
+    runs-on: macos-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Make test scripts executable
+      run: chmod +x tests/*.sh scripts/*.sh
+    
+    - name: Run comprehensive configuration tests
+      run: |
+        echo "Running comprehensive configuration tests..."
+        ./tests/test_config_monitor.sh
+        echo "✅ All configuration tests passed"
+    
+    - name: Verify test structure
+      run: |
+        echo "Verifying test structure..."
+        test -f tests/test_config_monitor.sh
+        test -f tests/README.md
+        grep -q "Automated Tests" tests/README.md
+        echo "✅ Test structure verified"

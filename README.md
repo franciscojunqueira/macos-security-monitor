@@ -54,10 +54,14 @@ macos-security-monitor/
 │   ├── config_monitor.sh                 # Interactive configuration tool
 │   ├── monitor_instalacoes_otimizado.sh  # Intermediate optimized version
 │   └── monitor_instalacoes_legacy.sh     # Original script (with fixes)
+├── tests/
+│   ├── test_config_monitor.sh            # Comprehensive configuration tests
+│   └── README.md                         # Testing documentation
 ├── docs/
 │   └── README_Monitor.md                 # Detailed documentation
 ├── examples/
 │   ├── launchagent.plist                # LaunchAgent example
+│   ├── LAUNCHAGENT_INSTALL.md           # Installation instructions
 │   ├── configuration.env                # Environment variables example
 │   └── critical_apps.txt                # Critical apps list example
 └── .github/
@@ -150,6 +154,43 @@ Monitor: 7 changes (2 important)
 └── LOW: 2
 ```
 
+## 🧪 Testing
+
+### Automated Tests
+
+The project includes comprehensive automated tests for the configuration system:
+
+```bash
+# Run all configuration tests
+./tests/test_config_monitor.sh
+
+# Restore original configuration after tests
+./tests/test_config_monitor.sh --restore
+
+# Show testing help
+./tests/test_config_monitor.sh --help
+```
+
+### Test Coverage
+
+- ✅ **Mode configuration** (quick/normal/full)
+- ✅ **Notification settings** (frequency, grouping)
+- ✅ **Critical apps management** (auto-detection, manual addition)
+- ✅ **Log configuration** (size limits, rotation)
+- ✅ **Status display** and validation
+- ✅ **Error handling** (invalid inputs, edge cases)
+- ✅ **LaunchAgent menu** functionality
+- ✅ **Configuration persistence** and loading
+
+### Testing Features
+
+- **Safe testing**: Automatic backup/restore of existing configurations
+- **Comprehensive**: Tests 8 different functionality suites
+- **Timeout protection**: Prevents hanging tests
+- **Detailed reporting**: Color-coded results with explanations
+
+See [tests/README.md](tests/README.md) for detailed testing documentation.
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -164,7 +205,8 @@ cd macos-security-monitor
 git checkout -b feature/your-feature-name
 
 # Make your changes and test
-./scripts/config_monitor.sh  # Test configuration
+./tests/test_config_monitor.sh           # Run automated tests
+./scripts/config_monitor.sh              # Test configuration interactively
 MONITOR_MODE=quick ./scripts/monitor_instalacoes_final.sh  # Test execution
 
 # Commit and push
@@ -174,6 +216,14 @@ git push origin feature/your-feature-name
 ```
 
 ## 📝 Changelog
+
+### v2.1.0 (2025-09-21)
+- 🧪 **Comprehensive test suite** for configuration system
+- 🐛 **Fixed critical apps auto-detection bug** in config_monitor.sh
+- 📁 **Organized project structure** with tests/ directory
+- 📚 **Enhanced documentation** with testing guides
+- ⚙️ **Improved .gitignore** to include example files correctly
+- 🚀 **CI/CD improvements** with complete test coverage
 
 ### v2.0.0 (2024-09-21)
 - ✅ **Fixed integer expression errors** in original script

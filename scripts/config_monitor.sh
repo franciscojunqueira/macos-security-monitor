@@ -148,10 +148,16 @@ manage_critical_apps() {
                 sort -u >> "$CRITICAL_APPS_LIST.new" 2>/dev/null || true
             
             if [ -f "$CRITICAL_APPS_LIST.new" ]; then
-                cat "$CRITICAL_APPS_LIST" "$CRITICAL_APPS_LIST.new" 2>/dev/null | sort -u > "$CRITICAL_APPS_LIST.tmp"
+                # Combina arquivo existente (se houver) com os novos apps detectados
+                if [ -f "$CRITICAL_APPS_LIST" ]; then
+                    cat "$CRITICAL_APPS_LIST" "$CRITICAL_APPS_LIST.new" | sort -u > "$CRITICAL_APPS_LIST.tmp"
+                else
+                    sort -u "$CRITICAL_APPS_LIST.new" > "$CRITICAL_APPS_LIST.tmp"
+                fi
                 mv "$CRITICAL_APPS_LIST.tmp" "$CRITICAL_APPS_LIST"
                 rm -f "$CRITICAL_APPS_LIST.new"
-                echo_color "$GREEN" "Apps de segurança detectados e adicionados"
+                apps_count=$(wc -l < "$CRITICAL_APPS_LIST")
+                echo_color "$GREEN" "$apps_count app(s) de segurança detectado(s) e adicionado(s)"
             else
                 echo_color "$YELLOW" "Nenhum app de segurança encontrado"
             fi

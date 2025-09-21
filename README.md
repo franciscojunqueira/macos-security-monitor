@@ -34,6 +34,7 @@ chmod +x scripts/*.sh
 
 ### Basic Usage
 
+#### Command Line Interface
 ```bash
 # Quick monitoring (30 seconds)
 MONITOR_MODE=quick ./scripts/monitor_instalacoes_final.sh
@@ -45,17 +46,35 @@ MONITOR_MODE=quick ./scripts/monitor_instalacoes_final.sh
 MONITOR_MODE=full ./scripts/monitor_instalacoes_final.sh
 ```
 
+#### macOS Application 🆕
+```bash
+# Open the modern Swift/SwiftUI application
+open macOS-App/macOS-Security-Monitor.app
+
+# Or build from source with Xcode
+cd macOS-App
+xcodebuild -project macOS-Security-Monitor.xcodeproj -scheme "macOS Security Monitor" build
+```
+
 ## 📁 Project Structure
 
 ```
 macos-security-monitor/
-├── scripts/
+├── scripts/                              # CLI monitoring scripts
 │   ├── monitor_instalacoes_final.sh      # Main optimized script
 │   ├── config_monitor.sh                 # Interactive configuration tool
 │   ├── monitor_instalacoes_otimizado.sh  # Intermediate optimized version
 │   └── monitor_instalacoes_legacy.sh     # Original script (with fixes)
+├── macOS-App/                            # 🆕 Native macOS Application
+│   ├── Sources/
+│   │   ├── Models/                       # Data models and business logic
+│   │   ├── Services/                     # Core services (Script, Config, Data)
+│   │   ├── ViewModels/                   # MVVM pattern implementation
+│   │   └── Views/                        # SwiftUI user interface
+│   ├── Resources/                        # Embedded scripts and examples
+│   └── Tests/                           # Unit and UI tests
 ├── tests/
-│   ├── test_config_monitor.sh            # Comprehensive configuration tests
+│   ├── test_config_monitor.sh            # CLI configuration tests
 │   └── README.md                         # Testing documentation
 ├── docs/
 │   └── README_Monitor.md                 # Detailed documentation

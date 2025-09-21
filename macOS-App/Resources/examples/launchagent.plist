@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.user.macos-security-monitor</string>
+    
+    <key>ProgramArguments</key>
+    <array>
+        <string>/path/to/your/scripts/monitor_instalacoes_final.sh</string>
+    </array>
+    
+    <!-- Run every 30 minutes (1800 seconds) -->
+    <key>StartInterval</key>
+    <integer>1800</integer>
+    
+    <!-- Don't run immediately on load -->
+    <key>RunAtLoad</key>
+    <false/>
+    
+    <!-- Logging -->
+    <key>StandardOutPath</key>
+    <string>/Users/YOUR_USERNAME/Library/Application Support/monitor_instalacoes/logs/launchagent.log</string>
+    
+    <key>StandardErrorPath</key>
+    <string>/Users/YOUR_USERNAME/Library/Application Support/monitor_instalacoes/logs/launchagent_error.log</string>
+    
+    <!-- Environment Variables -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/homebrew/bin</string>
+        
+        <!-- Monitor Configuration -->
+        <key>MONITOR_MODE</key>
+        <string>normal</string>
+        
+        <key>NOTIFICATION_FREQUENCY</key>
+        <string>1</string>
+        
+        <key>ENABLE_GROUPED_NOTIFICATIONS</key>
+        <string>true</string>
+        
+        <key>LOG_MAX_SIZE_MB</key>
+        <string>50</string>
+        
+        <key>LOG_ROTATION_COUNT</key>
+        <string>5</string>
+    </dict>
+    
+    <!-- Only run if user is logged in -->
+    <key>LimitLoadToSessionType</key>
+    <string>Aqua</string>
+    
+    <!-- Process type (background daemon) -->
+    <key>ProcessType</key>
+    <string>Background</string>
+</dict>
+</plist>

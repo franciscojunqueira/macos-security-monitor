@@ -1,0 +1,60 @@
+# Critical Security Applications - Example List
+# Add one application path per line
+# These apps will be monitored with high priority and trigger immediate notifications
+
+# Network Security & Firewall
+/Applications/Little Snitch.app
+/Applications/LuLu.app
+/Applications/Radio Silence.app
+
+# Ad Blockers & Privacy
+/Applications/1Blocker- Ad Blocker & Privacy.app
+/Applications/Privacy Cleaner Pro.app
+/Applications/Ghostery – Privacy Ad Blocker.app
+
+# Antivirus & Malware Protection
+/Applications/Malware Hunter.app
+/Applications/ClamXav.app
+/Applications/VirusBarrier.app
+/Applications/Intego VirusBarrier X9.app
+
+# System Security & Monitoring  
+/Applications/BlockBlock.app
+/Applications/RansomWhere?.app
+/Applications/KnockKnock.app
+/Applications/OverSight.app
+/Applications/Suspicious Package.app
+
+# VPN & Network Privacy
+/Applications/NordVPN.app
+/Applications/ExpressVPN.app
+/Applications/Surfshark.app
+/Applications/ProtonVPN.app
+
+# Password Managers
+/Applications/1Password 7 - Password Manager.app
+/Applications/Bitwarden.app
+/Applications/LastPass.app
+/Applications/Dashlane.app
+
+# Encryption & Secure Storage
+/Applications/Keka.app
+/Applications/The Unarchiver.app
+/Applications/Cryptomator.app
+
+# System Utilities with Security Impact
+/Applications/CleanMyMac.app
+/Applications/CleanMaster- Remove Junk Files.app
+/Applications/AppCleaner.app
+
+# Development Security Tools (if applicable)
+/Applications/Burp Suite Professional.app
+/Applications/OWASP ZAP.app
+/Applications/Wireshark.app
+
+# Notes:
+# - Remove or comment out (with #) apps you don't have installed
+# - Add any additional security apps specific to your setup
+# - The monitor will automatically detect many security apps by pattern matching
+# - Apps in this list get priority monitoring with immediate notifications
+# - Paths must be exact - use tab completion or copy from Applications folder
